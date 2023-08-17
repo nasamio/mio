@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 多item绑定 不带data binding 0817 暂不可用w
+ * 多item绑定 不带data binding 0817 暂不可用ww
  */
 public abstract class BaseMultiRecyclerViewAdapter<O extends Object> extends RecyclerView.Adapter<BaseRecyclerViewAdapter.BaseViewHolder> {
     private static final String TAG = "BaseMultiRecyclerViewAd";
