@@ -1,2 +1,2 @@
-include ':app'
+include ':app' // app模块用来验证lib的使用
 rootProject.name = "Base"
