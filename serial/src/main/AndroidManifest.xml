@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mio.serial">
+
+    <uses-permission android:name="android.permission.USB_PERMISSION" />
+    <!--   需要加入这样的一个service <service android:name="com.hzz.serial.SerialService" />-->
+    <application>
+        <service android:name="com.hzz.serial.SerialService" />
+    </application>
+</manifest>

@@ -22,7 +22,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void initView() {
-        replaceFragment(new TestFragment());
+        replaceFragment(new Test4Fragment());
     }
 
     //切换不同的fragment

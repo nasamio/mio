@@ -9,11 +9,8 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.Base">
-        <activity android:name=".MainActivity">
 
-        </activity>
-
-        <activity android:name="com.mio.base.FragmentMainActivity">
+        <activity android:name="com.mio.base.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

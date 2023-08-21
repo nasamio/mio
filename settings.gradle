@@ -1,4 +1,5 @@
 include ':utils'        // 工具栏
 include ':basic'        // 包含基类
+include ':serial'        // 包含基类
 include ':app'          // app模块用来验证lib的使用
 rootProject.name = "Base"
