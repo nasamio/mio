@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.mio.base"
-        minSdkVersion 18
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -42,6 +42,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
+    // 测试 transform
+    implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:2.0.24'
+    // 测试 xpop
+    implementation 'com.github.li-xiaojun:XPopup:2.9.19'
+
 
     // 引用其他模块
 

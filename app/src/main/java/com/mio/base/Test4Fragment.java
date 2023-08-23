@@ -100,6 +100,10 @@ public class Test4Fragment extends BaseFragment<Fragment4Binding> {
                     imgItems.add(imgItem);
                 }
             }
+
+
+
+
             mDataBinding.sv.setAniList(imgItems, () -> Log.d(TAG, "onAniEnd: "), 500);
 
 //                one = Math.min(mDataBinding.getRoot().getWidth(), mDataBinding.getRoot().getHeight()) / 10;

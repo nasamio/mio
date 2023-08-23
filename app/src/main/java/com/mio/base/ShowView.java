@@ -119,4 +119,28 @@ public class ShowView extends View {
             this.res = res;
         }
     }
+
+    public int getMargin() {
+        return margin;
+    }
+
+    public void setMargin(int margin) {
+        this.margin = margin;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getInnerWidth() {
+        return innerWidth;
+    }
+
+    public void setInnerWidth(int innerWidth) {
+        this.innerWidth = innerWidth;
+    }
 }

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Base">
 
-        <activity android:name="com.mio.base.MainActivity">
+        <activity android:name="com.mio.base.BottomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
