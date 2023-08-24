@@ -53,11 +53,18 @@ public abstract class BaseBottomActivity extends BaseActivity<ActivityBaseBottom
         for (int i = 0; i < list.size(); i++) {
             BottomItem bottomItem = list.get(i);
             if (bottomItem.id == item.getItemId()) {
-                mDataBinding.vp.setCurrentItem(i);
+                onSwiftFragment(i);
                 break;
             }
         }
         return true;
+    }
+
+    /**
+     * 可以通过重写该方法 来改变vp的切换是否带有动画
+     */
+    protected void onSwiftFragment(int index) {
+        mDataBinding.vp.setCurrentItem(index);
     }
 
     @Override
