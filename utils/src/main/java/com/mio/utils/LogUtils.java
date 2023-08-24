@@ -5,10 +5,10 @@ import android.util.Log;
 /**
  * @author xiaohu.hao
  * @description: log类，推荐使用这个.
- 能够根据堆栈信息 获取log具体所在的代码位置
+ * 能够根据堆栈信息 获取log具体所在的代码位置
  */
 public class LogUtils {
-    private static final boolean DEBUG = true;
+    public static boolean DEBUG = true;
     // 关键词，只需要过滤该词，只会出现该项目的的log，不会有别人的log，可以修改该值.
     private static final String TAG = "mio_";
 
