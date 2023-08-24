@@ -3,7 +3,7 @@ package com.mio.utils;
 import android.util.Log;
 
 /**
- * @author mio
+ * @author mio..
  * @description: log类，推荐使用这个.
  * 能够根据堆栈信息 获取log具体所在的代码位置
  */
