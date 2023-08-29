@@ -3,28 +3,24 @@ package com.mio.base;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.MenuItem;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
-import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
-import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
-import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.InputConfirmPopupView;
 import com.lxj.xpopup.interfaces.OnInputConfirmListener;
-import com.mio.base.databinding.ActivityBottomBinding;
-import com.mio.basic.BaseActivity;
+import com.mio.base.bean.User;
+import com.mio.base.manager.RetrofitServiceManager;
 import com.mio.basic.BaseBottomActivity;
+//import com.yanzhenjie.andserver.AndServer;
+//import com.yanzhenjie.andserver.Server;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observer;
 
 public class BottomActivity extends BaseBottomActivity {
     private static final String TAG = "BottomActivity";
+//    private Server server;
 
     @Override
     protected void initFragmentList() {
@@ -34,10 +30,13 @@ public class BottomActivity extends BaseBottomActivity {
         addFragment(R.id.item4, new Test4Fragment());
 
 
-        mDataBinding.vp
-                .setPageTransformer(true, new CubeOutTransformer());
+//        mDataBinding.vp
+//                .setPageTransformer(true, new CubeOutTransformer());
 
-        checkPer();
+//        checkPer();
+
+        testLocal();
+        testWeb();
     }
 
     private void checkPer() {
@@ -70,4 +69,41 @@ public class BottomActivity extends BaseBottomActivity {
     protected int getMenuRes() {
         return R.menu.menu_bottom_navigation;
     }
+
+    private void testWeb() {
+//        server = AndServer.webServer(this)
+//                .port(8080)
+//                .timeout(1, TimeUnit.SECONDS)
+//                .build();
+//        server.startup();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        server.shutdown();
+    }
+
+
+    private void testLocal() {
+        RetrofitServiceManager.getInstance().getAllUser(new Observer<List<User>>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "onCompleted: ");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError: " + e.toString());
+            }
+
+            @Override
+            public void onNext(List<User> users) {
+                for (User user : users) {
+                    Log.e(TAG, "onNext: " + user.toString());
+                }
+            }
+        });
+    }
+
 }

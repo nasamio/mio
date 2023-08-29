@@ -43,6 +43,10 @@ dependencies {
 
     compile project(':utils')
 
+    // lombok
+    implementation 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
     /**
      * 该模块todo
      * 其他类型的fragment切换动画

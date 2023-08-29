@@ -64,7 +64,11 @@ public abstract class BaseBottomActivity extends BaseActivity<ActivityBaseBottom
      * 可以通过重写该方法 来改变vp的切换是否带有动画
      */
     protected void onSwiftFragment(int index) {
-        mDataBinding.vp.setCurrentItem(index);
+        mDataBinding.vp.setCurrentItem(index, isSwitchFragmentSmooth());
+    }
+
+    protected boolean isSwitchFragmentSmooth() {
+        return false;
     }
 
     @Override
