@@ -2,6 +2,7 @@ package com.mio.base;
 
 import android.annotation.SuppressLint;
 import android.content.res.AssetManager;
+import android.os.Build;
 import android.util.Log;
 
 import com.hzz.serial.SerialItem;
@@ -17,8 +18,11 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.function.BinaryOperator;
+import java.util.stream.Collectors;
 
 public class TestFragment extends BaseFragment<FragmentTestBinding> {
     private static final String TAG = "TestFragment";
@@ -60,6 +64,7 @@ public class TestFragment extends BaseFragment<FragmentTestBinding> {
 
         initIot();
 //        testIot();
+//        testStream();
     }
 
     private void testIot() {
@@ -132,16 +137,16 @@ public class TestFragment extends BaseFragment<FragmentTestBinding> {
     }
 
     private static MqttAndroidClient mqttAndroidClient;
+
     private static String mqttUsername = "aaa"; //服务端创建的用户名
     private static String mqttPassword = "aaa"; //服务端吧创建的用户名密码
     private static String clientId = "123"; //唯一标识不可重复
     //接受消息的队列
     public static final LinkedBlockingQueue<MyMessage> SERVER_QUEUE = new LinkedBlockingQueue<>(
             200);
-
     //消息订阅的topic,可以自定义
-    private static final String topic = "/" + mqttUsername + "/" + clientId + "/user/get";
 
+    private static final String topic = "/" + mqttUsername + "/" + clientId + "/user/get";
 
     public void initIot() {
 
@@ -248,6 +253,38 @@ public class TestFragment extends BaseFragment<FragmentTestBinding> {
         public void setData(Object data) {
             this.data = data;
         }
+
     }
 
+    //    @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.N)
+    private void testStream() {
+        // 1. 获取数据源
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+
+        // 2. 获取数据流
+        List<Integer> evenSquares = numbers.stream()
+                // 3. 中间操作：筛选偶数并计算平方
+                .filter(n -> n % 2 == 0)
+                .map(n -> n * n)
+                // 4. 终端操作：收集结果
+                .collect(Collectors.toList());
+
+        int sum = numbers.stream().reduce(
+                1, new BinaryOperator<Integer>() {
+                    @Override
+                    public Integer apply(Integer i1, Integer i2) {
+                        Log.d(TAG, "apply: i : " + i1 + " i2 : " + i2);
+                        return i1 + i2;
+                    }
+                }
+        );
+        // reduce的话 前面的是初始值 后面的i1是上一轮返回的结果
+
+        Log.d(TAG, "testStream: sum : " + sum);
+
+        Log.d(TAG, "testStream: " + Arrays.toString(evenSquares.toArray()));
+
+
+    }
 }
