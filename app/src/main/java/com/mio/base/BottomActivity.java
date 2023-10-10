@@ -1,5 +1,6 @@
 package com.mio.base;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -14,9 +15,11 @@ import com.mio.basic.BaseBottomActivity;
 //import com.yanzhenjie.andserver.Server;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observer;
+import rx.observers.TestObserver;
 
 public class BottomActivity extends BaseBottomActivity {
     private static final String TAG = "BottomActivity";
@@ -35,8 +38,113 @@ public class BottomActivity extends BaseBottomActivity {
 
 //        checkPer();
 
-        testLocal();
-        testWeb();
+        // testLocal();
+        // testWeb();
+        // 观察者模式
+        testObserver();
+        // 责任链模式
+        testHandler();
+        // 单例模式
+        testSingleTon();
+        // 工厂模式
+        testFactory();
+        // 策略模式
+        testStrategy();
+    }
+
+    class TObservable extends Observable {
+
+        public void setChanged2() {
+            setChanged();
+        }
+
+
+    }
+
+    private void testObserver() {
+        Log.d(TAG, "testObserver: ");
+        // 被观察者
+        TObservable observable = new TObservable();
+        // 观察者1
+        java.util.Observer observer1 = (o, arg) ->
+                Log.d(TAG, "观察者1接到消息: " + arg.toString());    // 观察者2
+        java.util.Observer observer2 = (o, arg) ->
+                Log.d(TAG, "观察者2接到消息: " + arg.toString());
+
+        // 被观察者注册观察
+        observable.addObserver(observer1);
+        observable.addObserver(observer2);
+
+        // 被观察者发生改变
+        mDataBinding.getRoot().postDelayed(() -> {
+            String str = "我是消息...";
+            Log.d(TAG, "被观察者变化,发送消息:" + str);
+            observable.setChanged2();
+            observable.notifyObservers(str);
+        }, 1_000);
+    }
+
+    public abstract class TestHandler {
+
+        public TestHandler(TestHandler next) {
+            this.next = next;
+        }
+
+        TestHandler next; // 表示链式的下一个 不需要知道上一个
+
+        abstract void handle(int num); // 处理任务
+
+
+    }
+
+    private void testHandler() {
+
+        TestHandler handler3 = new TestHandler(null) {
+            @Override
+            void handle(int num) {
+                Log.d(TAG, "handle3: " + num);
+                if (next != null) next.handle(num);
+            }
+        };
+        TestHandler handler2 = new TestHandler(handler3) {
+            @Override
+            void handle(int num) {
+                Log.d(TAG, "handle2: " + num);
+                if (next != null) next.handle(num);
+            }
+        };
+        TestHandler handler1 = new TestHandler(handler2) {
+            @Override
+            void handle(int num) {
+                Log.d(TAG, "handle1: " + num);
+                if (next != null) next.handle(num);// 可以在这里加是否处理的逻辑 没处理的话就给下一级
+            }
+        };
+
+        mDataBinding.getRoot().postDelayed(() ->
+                handler1.handle(3), 1_000);
+    }
+
+
+    private void testSingleTon() {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                .setIcon(0)
+                .create();
+
+
+    }
+
+
+    private void testFactory() {
+
+    }
+
+    private void testStrategy() {
+        Animal person = new Animal(new PersonAction());
+        person.hello();
+
+        Animal dog = new Animal(new DogAction());
+        dog.hello();
     }
 
     private void checkPer() {

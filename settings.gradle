@@ -1,3 +1,4 @@
+//include ':hook'       // 测试hook 但as4.1版本对应的库不可使用
 include ':utils'        // 工具栏
 include ':basic'        // 包含基类
 include ':serial'        // 包含基类

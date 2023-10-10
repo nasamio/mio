@@ -9,6 +9,7 @@ import com.hzz.serial.SerialItem;
 import com.hzz.serial.SerialManager;
 import com.mio.base.databinding.FragmentTestBinding;
 import com.mio.basic.BaseFragment;
+import com.mio.utils.ImageLoader;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -65,6 +66,8 @@ public class TestFragment extends BaseFragment<FragmentTestBinding> {
         initIot();
 //        testIot();
 //        testStream();
+
+        ImageLoader.getsInstance(mContext).load(mDataBinding.imgTest,"https://img1.baidu.com/it/u=2817635320,853214720&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800");
     }
 
     private void testIot() {
