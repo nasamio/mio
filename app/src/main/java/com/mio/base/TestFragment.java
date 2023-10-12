@@ -1,9 +1,11 @@
 package com.mio.base;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 
 import com.hzz.serial.SerialItem;
 import com.hzz.serial.SerialManager;
@@ -67,7 +69,14 @@ public class TestFragment extends BaseFragment<FragmentTestBinding> {
 //        testIot();
 //        testStream();
 
-        ImageLoader.getsInstance(mContext).load(mDataBinding.imgTest,"https://img1.baidu.com/it/u=2817635320,853214720&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800");
+        ImageLoader.getsInstance(mContext).load(mDataBinding.imgTest, "https://img1.baidu.com/it/u=2817635320,853214720&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800");
+
+        mDataBinding.imgTest.setOnClickListener(v ->
+                mContext.startActivity(new Intent(
+                        mContext, ElsActivity.class
+                )));
+        mDataBinding.getRoot().postDelayed(() ->
+                mDataBinding.imgTest.performClick(),100);
     }
 
     private void testIot() {

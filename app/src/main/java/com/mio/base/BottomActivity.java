@@ -14,6 +14,7 @@ import com.mio.basic.BaseBottomActivity;
 //import com.yanzhenjie.andserver.AndServer;
 //import com.yanzhenjie.andserver.Server;
 
+import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Observable;
 import java.util.concurrent.TimeUnit;
@@ -50,6 +51,11 @@ public class BottomActivity extends BaseBottomActivity {
         testFactory();
         // 策略模式
         testStrategy();
+        // 代理模式
+        testProxy();
+        // 外观模式
+        testWaiguan();
+
     }
 
     class TObservable extends Observable {
@@ -145,6 +151,25 @@ public class BottomActivity extends BaseBottomActivity {
 
         Animal dog = new Animal(new DogAction());
         dog.hello();
+    }
+
+    private void testProxy() {
+        SourceObj sourceObj = new SourceObj();
+        // 静态代理
+        ProxyObj proxyObj = new ProxyObj(sourceObj);
+        proxyObj.methodA();
+        // 动态代理 使用InvocationHandler
+        IObj proxyInstance = (IObj) Proxy.newProxyInstance(
+                IObj.class.getClassLoader(), // 基类的类加载器
+                new Class[]{IObj.class}, // 目标接口
+                new DProxyObj(sourceObj));// 替换代理
+        proxyInstance.methodA();
+    }
+
+    private void testWaiguan() {
+        Iphone iphone = new Iphone(new Music(), new Camera());
+        iphone.playMusic();
+        iphone.takePhoto();
     }
 
     private void checkPer() {

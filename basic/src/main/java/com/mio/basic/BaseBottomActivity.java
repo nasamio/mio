@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -27,6 +28,8 @@ public abstract class BaseBottomActivity extends BaseActivity<ActivityBaseBottom
 
         adapter = new BottomAdapter(getSupportFragmentManager());
         initFragmentList();
+
+
         mDataBinding.vp.setAdapter(adapter);
         mDataBinding.vp.addOnPageChangeListener(this);
         mDataBinding.bnv.inflateMenu(getMenuRes());

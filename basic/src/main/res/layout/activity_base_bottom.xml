@@ -5,7 +5,6 @@
     tools:ignore="MissingDefaultResource">
 
     <data>
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
