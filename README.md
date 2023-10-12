@@ -99,6 +99,7 @@ public class TestView extends BaseView<ViewTestBinding> {
   toFragmentWithTransition(new TestFragment(),
                         new FragmentAnimation().setTransition(FragmentAnimation.LEFT))；
 ```
+### 下面是一些测试的demo，分属在不同的模块下
 
-**贪吃蛇：**
+## 贪吃蛇
 ![screenshot](https://github.com/nasamio/mio/blob/master/img_tcs.jpg?raw=true)
