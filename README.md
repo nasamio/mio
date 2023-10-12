@@ -100,5 +100,5 @@ public class TestView extends BaseView<ViewTestBinding> {
                         new FragmentAnimation().setTransition(FragmentAnimation.LEFT))；
 ```
 
-**贪吃蛇：**
+## 贪吃蛇
 ![screenshot](https://github.com/nasamio/mio/blob/master/img_tcs.jpg?raw=true)
