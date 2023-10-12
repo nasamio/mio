@@ -102,4 +102,4 @@ public class TestView extends BaseView<ViewTestBinding> {
 ### 下面是一些测试的demo，分属在不同的模块下
 
 ## 贪吃蛇
-![screenshot](https://github.com/nasamio/mio/blob/master/img_tcs.jpg?raw=true)
+![screenshot](https://github.com/nasamio/mio/blob/master/gif_tcs.gif?raw=true)
