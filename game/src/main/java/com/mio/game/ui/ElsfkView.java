@@ -113,6 +113,7 @@ public class ElsfkView extends BaseGameView {
         if (brick.size() > 0) {
             notifyData(brick, brick.get(0).getType());
         }*/
+        }
     }
 
     /**
