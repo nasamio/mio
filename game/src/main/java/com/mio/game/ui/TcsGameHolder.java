@@ -10,10 +10,10 @@ import com.mio.game.R;
 import com.mio.game.bean.Direction;
 import com.mio.game.databinding.LayoutGameHolderBinding;
 
-public class GameHolder extends BaseView<LayoutGameHolderBinding> {
+public class TcsGameHolder extends BaseView<LayoutGameHolderBinding> {
     private static final String TAG = "GameHolder";
 
-    public GameHolder(Context context, AttributeSet attrs) {
+    public TcsGameHolder(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

@@ -2,18 +2,21 @@ package com.mio.game.bean;
 
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class Point {
     private int x, y;
     private int type;
 
-    public  Point(int x, int y) {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    public static final int UNKNOWN = -1; // 未知
     public static final int NORMAL = 0; // 默认无东西的情况
     public static final int DATA = 1; // 有格子的情况下
     public static final int DO = 2; // 可以操作的格子

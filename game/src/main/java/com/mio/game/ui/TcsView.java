@@ -17,6 +17,9 @@ import static com.mio.game.bean.Direction.LEFT;
 import static com.mio.game.bean.Direction.RIGHT;
 import static com.mio.game.bean.Direction.TOP;
 
+/**
+ * 贪吃蛇
+ */
 public class TcsView extends BaseGameView {
     private static final String TAG = "TcsView";
 
@@ -43,7 +46,7 @@ public class TcsView extends BaseGameView {
             add(new Point(4, 9));
             add(new Point(4, 10));
         }};
-        notifySnake();
+        notifyData(snake, Point.DO);
         title = "贪吃蛇";
     }
 
@@ -113,21 +116,12 @@ public class TcsView extends BaseGameView {
             scorePoint = null;
             setScore(score + 1);
         }
-        notifySnake();
+        notifyData(snake, Point.DO);
     }
 
     @Override
     protected void onDestroy() {
 
-    }
-
-    private void notifySnake() {
-        for (int i = 0; i < snake.size(); i++) {
-            Point point = snake.get(i);
-            getPoint(point.getX(), point.getY()).setType(Point.DO);
-        }
-
-        postInvalidate();
     }
 
     /**

@@ -5,8 +5,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.mio.game.bean.Direction;
@@ -23,7 +23,7 @@ public abstract class BaseGameView extends View {
     private static final String TAG = "BaseGameView";
 
     // 线程池
-    protected ExecutorService gameThreadPool = Executors.newFixedThreadPool(5);
+    protected ExecutorService gameThreadPool;
 
     public BaseGameView(Context context) {
         super(context);
@@ -95,30 +95,33 @@ public abstract class BaseGameView extends View {
     }
 
     protected void gameRunnableInit() {
-        gameThreadPool.execute(() -> {
-            while (true) {
-                // Log.d(TAG, "gameRunnableInit is running : " + isRunning);
-                if (!isRunning) return;
+        if (gameThreadPool == null) {
+            gameThreadPool = Executors.newFixedThreadPool(5);
+            gameThreadPool.execute(() -> {
+                while (true) {
+                    // Log.d(TAG, "gameRunnableInit is running : " + isRunning);
+                    if (!isRunning) return;
 
 
-                onUpdate();
-                postInvalidate();
+                    onUpdate();
+                    postInvalidate();
 
-                try {
-                    Thread.sleep(updateDuration);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                    try {
+                        Thread.sleep(updateDuration);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-                if (callback != null) {
-                    callback.onGameUpdate();
+                    if (callback != null) {
+                        callback.onGameUpdate();
 
-                    if (title != null) {
-                        callback.onTitle(title);
+                        if (title != null) {
+                            callback.onTitle(title);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -139,9 +142,13 @@ public abstract class BaseGameView extends View {
             Point point = data.get(i);
             float left = marginHorizon + point.getX() * (oneWidth + marginOne);
             float top = marginTop + point.getY() * (oneWidth + marginOne);
-            notifyDataPaintColor(point.getType());
-            canvas.drawRect(left, top, left + oneWidth, top + oneWidth, dataPaint);
+            notifyDataPaintColor(point.getType(), left, top, left + oneWidth, top + oneWidth);
+            drawPoint(canvas, left, top, left + oneWidth, top + oneWidth, dataPaint);
         }
+    }
+
+    protected void drawPoint(Canvas canvas, float left, float top, float right, float bottom, Paint paint) {
+        canvas.drawRect(left, top, right, bottom, paint);
     }
 
     @Override
@@ -152,7 +159,7 @@ public abstract class BaseGameView extends View {
     /**
      * 可以重写此方法来达到自定义颜色的效果
      */
-    protected void notifyDataPaintColor(int data) {
+    protected void notifyDataPaintColor(int data, float left, float top, float right, float bottom) {
         // Log.d(TAG, "notifyDataPaintColor: " + data);
         switch (data) {
             case Point.DATA:
@@ -174,7 +181,12 @@ public abstract class BaseGameView extends View {
     }
 
     public Point getPoint(int x, int y) {
-        return data.get(x + (y * hor));
+        int index = x + (y * hor);
+        if (index < data.size() && index >= 0) {
+            return data.get(index);
+        } else {
+            return new Point(0, 0); // 返回一个不在data中的数据 操作不会影响界面
+        }
     }
 
     protected void gameOver(String msg) {
@@ -183,7 +195,7 @@ public abstract class BaseGameView extends View {
         if (callback != null) callback.onGameOver();
     }
 
-    protected void handleKey(Direction toDir) {
+    public void handleKey(Direction toDir) {
 
     }
 
@@ -199,6 +211,28 @@ public abstract class BaseGameView extends View {
     public void restart() {
         isRunning = true;
         init(getContext());
+    }
+
+    protected void notifyData(List<Point> newData, int type) {
+        // 清除原有do的数据
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            data.forEach(point -> {
+                if (point.getType() == Point.DO) {
+                    point.setType(Point.NORMAL);
+                }
+            });
+        }
+
+        for (int i = 0; i < newData.size(); i++) {
+            Point point = newData.get(i);
+            getPoint(point.getX(), point.getY()).setType(type);
+        }
+
+        postInvalidate();
+    }
+
+    protected void plusScore(int delta) {
+        setScore(score + delta);
     }
 
     /**
